@@ -5,12 +5,13 @@ from skimage.restoration import unwrap_phase
 
 class HilbertPhase:
 
-    def __init__(self, fname, regularize = False):
-        # self.wv = wavelength
-        self.wv = 6378e-9
-        self.fname = fname
+    def __init__(self, data, regularize = False):
+        if type(data) == str:
+            self.fname = data
+            self.img = np.float64(color.rgb2gray(io.imread(self.fname)))
+        else:
+            self.img = data
         self.REG = regularize
-        self.img = np.float64(color.rgb2gray(io.imread(self.fname)))
 
     def retrieve(self, delete_trend = True, wv = 1):
         self.wv = wv
